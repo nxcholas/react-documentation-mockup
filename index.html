@@ -55,7 +55,7 @@
             <div class="code-header"><span class="language-name">JSX</span></div>
             <div class="code-content">
                 <code>
-                    const heading = &lth1&gtMozilla Developer Network&lt/h1&gt    
+                  <span class="code-tag-head">const</span> heading = <span class="code-tag-type">&lth1&gt</span>Mozilla Developer Network<span class="code-tag-type">&lt/h1&gt</span>;    
                  </code>
             </div> 
         </div>
@@ -65,23 +65,57 @@
         <p>
           Suppose we wanted to wrap our heading in a &ltheader&gt tag, for semantic reasons? The JSX approach allows us to nest our elements within each other, just like we do with HTML:
         </p>
-            <code>
-                <p>JSX</p>
-                <p>
-        
-          &ltp&gtconst header = (
-  &ltheader&gt
-    &lth1&gtMozilla Developer Network&lt/h1&gt
-  &lt/header&gt
-);
-          </p>
-            </code>
+        <div class="code-example">
+          <div class="code-header"><span class="language-name">JSX</span></div>
+            <div class="code-content">
+                <code>
+                  <span class="code-tag-head">const</span> header = &lpar;
+                  <br>
+                    <span class="code-tag-type" id="line-indent-1">&ltheader&gt</span>
+                    <br>
+                      <span class="code-tag-type" id="line-indent-2">&lth1&gt</span>Mozilla Developer Network<span class="code-tag-type">&lt/h1&gt</span>
+                    <br>
+                  <span class="code-tag-type" id="line-indent-1">&lt/header&gt</span>
+                  <br>
+                  &rpar;;   
+                </code>
+            </div> 
+      </div>
+        <p>
+          Of course, your browser can't read JSX without help. When compiled (using a tool like Babel or Parcel), our header expression would look like this:
+        </p>
+        <div class="code-example">
+          <div class="code-header"><span class="language-name">JSX</span></div>
+            <div class="code-content">
+                <code>
+                  <span class="code-tag-head">const</span> header = React.<span class="code-tag-sub">createElement</span> &lpar;
+                  <br>
+                    <span class="code-tag-type" id="line-indent-1">"header"</span>,
+                    <br>
+                    <span class="code-tag-head" id="line-indent-1">null</span>,
+                    <br>
+                      <span id="line-indent-1">React.<span class="code-tag-sub">createElement</span>&lpar;<span class="code-tag-type">"h1"</span>, <span class="code-tag-head">null</span>, <span class="code-tag-type">"Mozilla Developer Network</span>&rpar;,</span>
+                    <br>
+                  &rpar;;   
+                </code>
+            </div> 
+      </div>
+      <p>
+        It's possible to skip the compilation step and use React.createElement() to write your UI yourself. In doing this, however, you lose the declarative benefit of JSX, and your code becomes harder to read. Compilation is an extra step in the development process, but many developers in the React community think that the readability of JSX is worthwhile. Plus, modern front-end development almost always involves a build process anyway — you have to downlevel modern syntax to be compatible with older browsers, and you may want to minify your code to optimize loading performance. Popular tooling like Babel already comes with JSX support out-of-the-box, so you don't have to configure compilation yourself unless you want to.
+      </p>
       </section>
       <section class="main-section" id="Setting_up_your_first_React_app">
         <header>Setting up your first React app</header>
         <p>In order to use Vite, you need to have Node.js installed. As of Vite 5.0, at least Node version 18 or later is required, and it's a good idea to run the latest long term support (LTS) version when you can. As of 24th October 2023, Node 20 is the latest LTS version. Node includes npm (the Node package manager).</p>
         <p>To check your version of Node, run the following in your terminal:</p>
-        <code><div></div></code>
+        <div class="code-example">
+          <div class="code-header"><span class="language-name">BASH</span></div>
+            <div class="code-content">
+                <code>
+                  <span class="code-tag-sub">node</span> -v  
+                </code>
+            </div> 
+      </div>
         <p>If Node is installed, you'll see a version number. If it isn't, you'll see an error message. To install Node, follow the instructions on the Node.js website.</p>
         <p>You may use the Yarn package manager as an alternative to npm but we'll assume you're using npm in this set of tutorials. See Package management basics for more information on npm and yarn.</p>
         <p>If you're using Windows, you will need to install some software to give you parity with Unix/macOS terminal in order to use the terminal commands mentioned in this tutorial. Gitbash (which comes as part of the git for Windows toolset) or Windows Subsystem for Linux (WSL) are both suitable. See Command line crash course for more information on these, and on terminal commands in general.</p>
@@ -91,14 +125,36 @@
       <section class="main-section" id="Initializing_your_app">
         <header>Initializing your app</header>
         <p>The npm package manager comes with a create command that allows you to create new projects from templates. We can use it to create a new app from Vite's standard React template. Make sure you cd to the place you'd like your app to live on your machine, then run the following in your terminal:</p>
-        <code><div></div</code>
+        <div class="code-example">
+          <div class="code-header"><span class="language-name">BASH</span></div>
+            <div class="code-content">
+                <code>
+                  <span class="code-tag-sub">npm</span> create vite@latest moz-todo-react -- --template react  
+                </code>
+            </div> 
+      </div>
         <p>This creates a moz-todo-react directory using Vite's react template.</p>
         <p>Your terminal will have printed some messages if this command was successful. You should see text prompting you to cd to your new directory, install the app's dependencies, and run the app locally. Let's start with two of those commands. Run the following in your terminal:</p>
-        <code><div></div</code>
+        <div class="code-example">
+          <div class="code-header"><span class="language-name">BASH</span></div>
+            <div class="code-content">
+                <code>
+                  <span class="code-tag-alt" id="cd">cd</span> moz-todo-react && <span class="code-tag-sub">npm install</span>  
+                </code>
+            </div> 
+      </div>
         <p>Once the process is complete, we need to start a local development server to run our app. Here, we're going to add some command line flags to Vite's default suggestion to open the app in our browser as soon as the server starts, and use port 3000.</p>
         <p>Run the following in your terminal:</p>
-        <code><div></div</code>
+        <div class="code-example">
+          <div class="code-header"><span class="language-name">BASH</span></div>
+            <div class="code-content">
+                <code>
+                  <span class="code-tag-sub"></span>npm</span> run dev -- --open --port <span class="code-tag-type">3000</span>  
+                </code>
+            </div> 
+      </div>
         <p>Once the server starts, you should see a new browser tab containing your React app:</p>
+        <img src="https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started/default-vite.png">
       </section>
     </main>
   </body>
